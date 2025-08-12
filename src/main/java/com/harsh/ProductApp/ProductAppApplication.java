@@ -16,5 +16,4 @@ public class ProductAppApplication {
 		 Dev obj = context.getBean(Dev.class);
 		 obj.build();
 	}
-
 }

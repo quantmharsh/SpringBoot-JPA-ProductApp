@@ -21,8 +21,23 @@ public class ProductService {
     public Product getProductById(int ProdId){
         return  products.stream().filter(product -> product.getProdId()==ProdId ).findFirst().get();
     }
+
     public  void addProducts(Product prod)
     {
         products.add(prod);
+    }
+
+    public  void  updateProduct( int prodId ,Product updateProd)
+    {
+        products.stream().filter(product-> product.getProdId()==prodId)
+                .findFirst().ifPresent(product
+                        -> {product.setProdName(updateProd.getProdName());
+        product.setPrice(updateProd.getPrice());
+        });
+    }
+
+    public  void deleteProduct(int  prodId){
+        products.removeIf(product -> product.getProdId()==prodId);
+
     }
 }
