@@ -13,12 +13,16 @@ import java.util.PriorityQueue;
 public class ProductService {
 
 
-    List<Product> products= Arrays.asList(new Product(101, "Laptop", 40000) , new Product(102 ,"Realme Mobile" , 20000));
+    List<Product> products= new ArrayList<>( Arrays.asList(new Product(101, "Laptop", 40000) , new Product(102 ,"Realme Mobile" , 20000)));
     public   List<Product> getProducts(){
         return products;
     }
 
     public Product getProductById(int ProdId){
         return  products.stream().filter(product -> product.getProdId()==ProdId ).findFirst().get();
+    }
+    public  void addProducts(Product prod)
+    {
+        products.add(prod);
     }
 }
