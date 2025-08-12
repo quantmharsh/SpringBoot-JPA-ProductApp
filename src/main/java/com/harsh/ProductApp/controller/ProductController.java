@@ -4,6 +4,8 @@ package com.harsh.ProductApp.controller;
 import com.harsh.ProductApp.model.Product;
 import com.harsh.ProductApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,33 +14,36 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
-    @RequestMapping("/products")
-    public List<Product> getAllProducts(){
-        return
-                productService.getProducts();
+    @GetMapping("/products")
+    public   ResponseEntity< List<Product>> getAllProducts(){
+        return   new ResponseEntity<>(  productService.getProducts() ,HttpStatus.OK);
+
     }
 
-    @RequestMapping("/products/{prodId}")
-    public Product getProductById(@PathVariable int prodId)
+    @GetMapping("/products/{prodId}")
+    public   ResponseEntity<Product> getProductById(@PathVariable int prodId)
     {
-        return productService.getProductById(prodId);
+        return   new  ResponseEntity<>( productService.getProductById(prodId)  , HttpStatus.OK);
     }
 
     @PostMapping("/products")
-            public void addProduct(@RequestBody Product prod)
+            public  ResponseEntity<String>  addProduct(@RequestBody Product prod)
     {
      productService.addProducts(prod);
+     return new ResponseEntity<>("Product Added Successfully" , HttpStatus.CREATED);
     }
 
     @PutMapping("/products/{prodId}")
-    public  void  updateProduct(@PathVariable int prodId , @RequestBody Product prod)
+    public  ResponseEntity<Product>  updateProduct(@PathVariable int prodId , @RequestBody Product prod)
     {
         productService.updateProduct(prodId , prod);
+        return   new ResponseEntity<>(productService.getProductById(prodId) ,HttpStatus.OK );
     }
 
     @DeleteMapping("/products/{prodId}")
-     public void deleteProduct(@PathVariable int prodId)
+     public  ResponseEntity<String> deleteProduct(@PathVariable int prodId)
      {
          productService.deleteProduct(prodId);
+         return new ResponseEntity<>("Product Delted Successfully" , HttpStatus.OK);
      }
 }
