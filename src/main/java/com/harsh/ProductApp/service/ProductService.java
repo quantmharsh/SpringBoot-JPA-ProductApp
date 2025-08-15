@@ -40,4 +40,8 @@ public class ProductService {
         products.removeIf(product -> product.getProdId()==prodId);
 
     }
+    public Product getProductByName(String prod)
+    {
+        products.stream().filter(p-> p.getProdName() ="prod");
+    }
 }
