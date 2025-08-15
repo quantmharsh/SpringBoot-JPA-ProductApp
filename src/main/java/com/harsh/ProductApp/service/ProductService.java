@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -40,8 +41,8 @@ public class ProductService {
         products.removeIf(product -> product.getProdId()==prodId);
 
     }
-    public Product getProductByName(String prod)
+    public List<Product>  getProductByName(String prod)
     {
-        products.stream().filter(p-> p.getProdName() ="prod");
+      return  products.stream().filter(p-> p.getProdName().toLowerCase().contains(prod.toLowerCase())).collect(Collectors.toList());
     }
 }
