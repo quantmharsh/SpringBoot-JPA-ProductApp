@@ -46,4 +46,12 @@ public class ProductController {
          productService.deleteProduct(prodId);
          return new ResponseEntity<>("Product Deleted Successfully" , HttpStatus.OK);
      }
+
+
+     @GetMapping("/products/{prodName}")
+       public ResponseEntity<List<Product>>  getProductByName(@PathVariable String prodName)
+       {
+
+           return new ResponseEntity<>(    productService.getProductByName(prodName) , HttpStatus.OK);
+       }
 }
