@@ -48,10 +48,11 @@ public class ProductController {
      }
 
 
+      //Controller to get products By product name
      @GetMapping("/products/{prodName}")
        public ResponseEntity<List<Product>>  getProductByName(@PathVariable String prodName)
        {
-
+        // Probably need to update Status in future .
            return new ResponseEntity<>(    productService.getProductByName(prodName) , HttpStatus.OK);
        }
 }
