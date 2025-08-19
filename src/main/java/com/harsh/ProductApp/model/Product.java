@@ -1,5 +1,7 @@
 package com.harsh.ProductApp.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity   // to use this Product as table  and its values as columns .
 public class Product {
-
+    @Id
     private int prodId;
     private String prodName;
 

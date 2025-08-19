@@ -1,6 +1,8 @@
 package com.harsh.ProductApp.service;
 
 import com.harsh.ProductApp.model.Product;
+import com.harsh.ProductApp.repository.ProductRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,37 +14,35 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-
-
-    List<Product> products= new ArrayList<>( Arrays.asList(new Product(101, "Laptop", 40000) , new Product(102 ,"Realme Mobile" , 20000)));
+    @Autowired
+    ProductRepo repo;
+//    List<Product> products= new ArrayList<>( Arrays.asList(new Product(101, "Laptop", 40000) , new Product(102 ,"Realme Mobile" , 20000)));
     public   List<Product> getProducts(){
-        return products;
+
+        return  repo.findAll();
     }
 
     public Product getProductById(int ProdId){
-        return  products.stream().filter(product -> product.getProdId()==ProdId ).findFirst().get();
+        return   repo.findById(ProdId).orElse( new Product());
     }
 
     public  void addProducts(Product prod)
     {
-        products.add(prod);
+        repo.save(prod);
     }
 
     public  void  updateProduct( int prodId ,Product updateProd)
     {
-        products.stream().filter(product-> product.getProdId()==prodId)
-                .findFirst().ifPresent(product
-                        -> {product.setProdName(updateProd.getProdName());
-        product.setPrice(updateProd.getPrice());
-        });
+         repo.save(updateProd);
     }
 
     public  void deleteProduct(int  prodId){
-        products.removeIf(product -> product.getProdId()==prodId);
+      repo.deleteById(prodId);
 
     }
     public List<Product>  getProductByName(String prod)
     {
-      return  products.stream().filter(p-> p.getProdName().toLowerCase().contains(prod.toLowerCase())).collect(Collectors.toList());
+        System.out.println("Product by name" +repo.findByProdName(prod));
+       return repo.findByProdName(prod);
     }
 }
