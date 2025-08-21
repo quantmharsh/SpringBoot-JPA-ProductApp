@@ -40,6 +40,7 @@ public class ProductService {
       repo.deleteById(prodId);
 
     }
+    // list of products
     public List<Product>  getProductByName(String prod)
     {
         System.out.println("Product by name" +repo.findByProdName(prod));
